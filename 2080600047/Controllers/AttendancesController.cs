@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace _2080600047.Controllers
 {
+    [Authorize]
     public class AttendancesController : ApiController
     {
         private ApplicationDbContext _dbContext;
@@ -21,14 +22,14 @@ namespace _2080600047.Controllers
         public IHttpActionResult Attend(AttendanceDto attendanceDto)
         {
             var userId = User.Identity.GetUserId();
-            if(_dbContext.Attendances.Any(a => a.AttendeeId == userId && a.CourseId == attendanceDto.CourseId))
+            if(_dbContext.Attendances.Any(a=>a.AttendeeId==userId&&a.CourseId == attendanceDto.CourseId))
             {
-                return BadRequest("The Attandance already exists!");
+                return BadRequest("Đã đăng ký rồi");
             }
-            var attendance = new Attendance
+            var attendance = new Attendance()
             {
                 CourseId = attendanceDto.CourseId,
-                AttendeeId = User.Identity.GetUserId()
+                AttendeeId = userId
             };
             _dbContext.Attendances.Add(attendance);
             _dbContext.SaveChanges();

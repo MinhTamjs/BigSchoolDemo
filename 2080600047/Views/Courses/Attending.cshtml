@@ -1,7 +1,11 @@
 ﻿@model  _2080600047.Models.ViewModels.CoursesViewModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Attending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<h2>Attending</h2>
+
 
 <ul class="course">
     @foreach (var course in Model.UpcommingCourses)
@@ -18,21 +22,21 @@
             <div class="details">
                 <span class="category">
                     @course.Category.Name
-                    </span>
-                    <span class="lecture">
-                        @course.Lecture.Name
-                        @if (Model.ShowAction)
-                        {
-                            <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LectureId">Follow</button>
-                        }
-                    </span>
-                    @if(Model.ShowAction)
+                </span>
+                <span class="lecture">
+                    @course.Lecture.Name
+                    @if (Model.ShowAction)
                     {
-                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going</button>
+                        <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LectureId">Follow</button>
                     }
-                </div>
-            </li>
-        }
+                </span>
+                @if (Model.ShowAction)
+                {
+                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going</button>
+                }
+            </div>
+        </li>
+    }
 </ul>
 @section scripts
 {

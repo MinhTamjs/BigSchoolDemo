@@ -1,4 +1,5 @@
 ﻿using _2080600047.Models;
+using _2080600047.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,9 +19,15 @@ namespace _2080600047.Controllers
         public ActionResult Index()
         {
             var upcomingCourses = _dbContext.Courses
+                .Include(c => c.Lecture)
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
-            return View(upcomingCourses);
+            var viewModel =  new CoursesViewModel
+            {
+                UpcommingCourses = upcomingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
 
         public ActionResult About()

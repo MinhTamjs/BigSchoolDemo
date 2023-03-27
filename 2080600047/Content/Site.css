@@ -38,3 +38,11 @@ textarea {
     top: 0;
     left: 70px;
 }
+.course .liii .action{
+    display: none;
+    left : 70px;
+    position: absolute;
+}
+.course >liii:hover .action{
+    display: block;
+}
